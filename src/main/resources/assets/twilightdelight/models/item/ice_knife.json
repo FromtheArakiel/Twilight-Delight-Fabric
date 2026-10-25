@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "twilightdelight:item/ice_knife_solid",
+    "layer1": "twilightdelight:item/ice_knife_clear"
+  }
+}

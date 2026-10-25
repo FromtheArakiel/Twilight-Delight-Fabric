@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "dev.arakiel.twilightdelight.client.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "CuttingBoardTrophyMixin",
+    "EntityAuroraMixin",
+    "ItemEntityFrozenMixin",
+    "ItemRendererVisualMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:cake"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "G": {
+      "item": "minecraft:grass_block"
+    },
+    "P": {
+      "item": "minecraft:poppy"
+    },
+    "T": {
+      "item": "minecraft:dirt"
+    },
+    "W": {
+      "item": "minecraft:water_bucket"
+    }
+  },
+  "pattern": [
+    " DP",
+    "GWG",
+    "TCT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "twilightdelight:twilight_cake"
+  }
+}

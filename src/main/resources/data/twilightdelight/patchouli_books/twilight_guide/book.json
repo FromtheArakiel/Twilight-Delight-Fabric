@@ -1,0 +1,8 @@
+{
+  "name": "patchouli.twilightdelight.title",
+  "landing_text": "patchouli.twilightdelight.landing",
+  "version": 1,
+  "model": "twilightdelight:book",
+  "creative_tab": "twilightdelight:twilight_delight",
+  "use_resource_pack": true
+}

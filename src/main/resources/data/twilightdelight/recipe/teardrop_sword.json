@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "twilightdelight:experiment_110"
+  },
+  "base": {
+    "item": "twilightforest:fiery_sword"
+  },
+  "result": {
+    "count": 1,
+    "id": "twilightdelight:teardrop_sword"
+  },
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
+  }
+}

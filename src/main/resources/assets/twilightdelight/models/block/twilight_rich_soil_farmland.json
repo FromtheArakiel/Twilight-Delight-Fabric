@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/farmland",
+  "textures": {
+    "dirt": "twilightdelight:block/twilight_rich_soil",
+    "top": "twilightdelight:block/twilight_rich_soil_farmland"
+  }
+}

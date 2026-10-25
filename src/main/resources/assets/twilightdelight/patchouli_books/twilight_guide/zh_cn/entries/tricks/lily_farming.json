@@ -1,0 +1,16 @@
+{
+  "name": "睡莲农场",
+  "icon": "twilightforest:huge_lily_pad",
+  "category": "twilightdelight:tricks",
+  "pages": [
+	{
+	  "type": "patchouli:text",
+	  "text": "在水下一格放沃土，然后在水上放睡莲。如果空间足够的话，睡莲可能会成长成巨型睡莲。$(br2)如果在巨型睡莲旁边，睡莲也可能会会成长成巨型莲花。"
+	},
+	{
+	  "type": "patchouli:spotlight",
+	  "item": "twilightforest:huge_water_lily",
+	  "text": "睡莲成长成巨型荷花后，会继续在周围长出睡莲"
+	}
+  ]
+}
