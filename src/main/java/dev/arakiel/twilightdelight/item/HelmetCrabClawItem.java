@@ -2,7 +2,10 @@ package dev.arakiel.twilightdelight.item;
 
 import java.util.List;
 import net.minecraft.ChatFormatting;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
@@ -14,20 +17,19 @@ import net.minecraft.world.entity.Shearable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ShearsItem;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.Tool;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.GrowingPlantHeadBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.core.component.DataComponents;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
 public final class HelmetCrabClawItem extends TDKnifeItem {
-    private static final ShearsItem SHEARS = new ShearsItem(new Item.Properties());
-
     public HelmetCrabClawItem() {
         super(Tiers.IRON, new Item.Properties().component(
                 DataComponents.TOOL,
@@ -54,10 +56,45 @@ public final class HelmetCrabClawItem extends TDKnifeItem {
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
-        InteractionResult result = SHEARS.useOn(context);
-        return result == InteractionResult.PASS
-                ? super.useOn(context)
-                : result;
+        Level level = context.getLevel();
+        BlockPos pos = context.getClickedPos();
+        BlockState state = level.getBlockState(pos);
+        if (state.getBlock() instanceof GrowingPlantHeadBlock plant
+                && !plant.isMaxAge(state)) {
+            Player player = context.getPlayer();
+            ItemStack stack = context.getItemInHand();
+            if (player instanceof ServerPlayer serverPlayer) {
+                CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(
+                        serverPlayer,
+                        pos,
+                        stack
+                );
+            }
+            level.playSound(
+                    player,
+                    pos,
+                    SoundEvents.GROWING_PLANT_CROP,
+                    SoundSource.BLOCKS,
+                    1.0F,
+                    1.0F
+            );
+            BlockState mature = plant.getMaxAgeState(state);
+            level.setBlockAndUpdate(pos, mature);
+            level.gameEvent(
+                    GameEvent.BLOCK_CHANGE,
+                    pos,
+                    GameEvent.Context.of(player, mature)
+            );
+            if (player != null) {
+                stack.hurtAndBreak(
+                        1,
+                        player,
+                        LivingEntity.getSlotForHand(context.getHand())
+                );
+            }
+            return InteractionResult.sidedSuccess(level.isClientSide());
+        }
+        return super.useOn(context);
     }
 
     @Override
