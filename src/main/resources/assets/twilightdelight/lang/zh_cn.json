@@ -281,6 +281,7 @@
   "jei.twilightdelight.frozen": "冻结转化",
   "jade.twilightdelight.fiery_pot.heated": "永久加热",
   "jade.twilightdelight.fiery_pot.meal": "餐食：%s",
+  "jade.twilightdelight.feast.servings": "剩余份数：%s / %s",
   "jade.twilightdelight.maze_stove.active": "迷宫炉灶：工作中",
   "jade.twilightdelight.maze_stove.inactive": "迷宫炉灶：未点燃",
   "jade.twilightdelight.maze_stove.slots": "烹饪槽位：%s/%s",

@@ -5,7 +5,10 @@ import dev.arakiel.twilightdelight.registry.TDEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.boss.EnderDragonPart;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.phys.Vec3;
 
 public final class AuroraGlowClient {
@@ -13,6 +16,12 @@ public final class AuroraGlowClient {
     }
 
     public static boolean shouldRender(Entity entity) {
+        if (!(entity instanceof LivingEntity)
+                && !(entity instanceof ItemEntity)
+                && !(entity instanceof Projectile)
+                && !(entity instanceof EnderDragonPart)) {
+            return false;
+        }
         Player player = Minecraft.getInstance().player;
         if (player == null) {
             return false;

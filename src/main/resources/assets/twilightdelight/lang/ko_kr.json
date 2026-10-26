@@ -269,6 +269,7 @@
   "jei.twilightdelight.frozen": "Freezing",
   "jade.twilightdelight.fiery_pot.heated": "Always heated",
   "jade.twilightdelight.fiery_pot.meal": "Meal: %s",
+  "jade.twilightdelight.feast.servings": "Servings: %s / %s",
   "jade.twilightdelight.maze_stove.active": "Maze Stove: Active",
   "jade.twilightdelight.maze_stove.inactive": "Maze Stove: Inactive",
   "jade.twilightdelight.maze_stove.slots": "Cooking slots: %s/%s",

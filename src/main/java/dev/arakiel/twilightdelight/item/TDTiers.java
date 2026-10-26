@@ -50,9 +50,11 @@ public enum TDTiers implements Tier {
     @Override
     public net.minecraft.tags.TagKey<net.minecraft.world.level.block.Block>
     getIncorrectBlocksForDrops() {
-        return this == WROUGHT_IRON
-                ? BlockTags.INCORRECT_FOR_IRON_TOOL
-                : BlockTags.INCORRECT_FOR_DIAMOND_TOOL;
+        return switch (this) {
+            case WROUGHT_IRON -> BlockTags.INCORRECT_FOR_IRON_TOOL;
+            case TEARDROP -> BlockTags.INCORRECT_FOR_NETHERITE_TOOL;
+            default -> BlockTags.INCORRECT_FOR_DIAMOND_TOOL;
+        };
     }
 
     @Override

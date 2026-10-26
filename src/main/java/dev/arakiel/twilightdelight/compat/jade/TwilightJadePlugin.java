@@ -5,6 +5,7 @@ import dev.arakiel.gemini.integration.GeminiIntegrationType;
 import dev.arakiel.twilightdelight.block.FieryCookingPotBlock;
 import dev.arakiel.twilightdelight.block.MazeStoveBlock;
 import dev.arakiel.twilightdelight.block.MazeStoveBlockEntity;
+import dev.arakiel.twilightdelight.block.TwilightFeastBlock;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -16,6 +17,7 @@ import snownee.jade.api.IWailaPlugin;
 import snownee.jade.api.WailaPlugin;
 import snownee.jade.api.config.IPluginConfig;
 import vectorwing.farmersdelight.common.block.entity.CookingPotBlockEntity;
+import vectorwing.farmersdelight.common.block.FeastBlock;
 
 @WailaPlugin("twilightdelight")
 @GeminiIntegration(value = "jade", type = GeminiIntegrationType.CLIENT)
@@ -32,6 +34,10 @@ public final class TwilightJadePlugin implements IWailaPlugin {
         registration.registerBlockComponent(
                 new MazeStoveProvider(),
                 MazeStoveBlock.class
+        );
+        registration.registerBlockComponent(
+                new FeastServingsProvider(),
+                TwilightFeastBlock.class
         );
     }
 
@@ -89,6 +95,35 @@ public final class TwilightJadePlugin implements IWailaPlugin {
                         "jade.twilightdelight.maze_stove.slots",
                         occupied,
                         stove.getItems().getSlotCount()
+                ));
+            }
+        }
+
+        @Override
+        public ResourceLocation getUid() {
+            return UID;
+        }
+    }
+
+    private static final class FeastServingsProvider implements IBlockComponentProvider {
+        private static final ResourceLocation UID =
+                ResourceLocation.fromNamespaceAndPath(
+                        "twilightdelight",
+                        "feast_servings"
+                );
+
+        @Override
+        public void appendTooltip(
+                ITooltip tooltip,
+                BlockAccessor accessor,
+                IPluginConfig config
+        ) {
+            var state = accessor.getBlockState();
+            if (state.getBlock() instanceof FeastBlock feast) {
+                tooltip.add(Component.translatable(
+                        "jade.twilightdelight.feast.servings",
+                        state.getValue(FeastBlock.SERVINGS),
+                        feast.getMaxServings()
                 ));
             }
         }

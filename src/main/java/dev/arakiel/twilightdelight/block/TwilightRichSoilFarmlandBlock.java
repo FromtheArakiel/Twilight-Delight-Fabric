@@ -43,8 +43,7 @@ public final class TwilightRichSoilFarmlandBlock extends RichSoilFarmlandBlock {
                 pos.offset(-4, 0, -4),
                 pos.offset(4, 1, 4)
         )) {
-            var fluid = level.getFluidState(nearby);
-            if (fluid.is(FluidTags.WATER) && fluid.isSource()) {
+            if (level.getFluidState(nearby).is(FluidTags.WATER)) {
                 return true;
             }
         }

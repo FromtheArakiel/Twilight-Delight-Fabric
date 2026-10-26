@@ -130,9 +130,9 @@ public final class TDItems implements ItemRegistryContainer {
     public static final Item THICKCUT_GHAST_FRIES = food("thickcut_ghast_fries", FoodKind.NONE, 10, 0.8F, List.of(custom(TDEffects.TEMPORAL_SADNESS, 200, 0, 0.33F), effect(MobEffects.REGENERATION, 900, 1, 1.0F), effect(ModEffects.NOURISHMENT, 3000, 0, 1.0F)));
     public static final Item BOWL_OF_GHASTLING_MOUSSE_CAKE = food("bowl_of_ghastling_mousse_cake", FoodKind.NONE, 10, 0.8F, List.of(custom(TDEffects.TEMPORAL_SADNESS, 200, 0, 0.33F), effect(MobEffects.SLOW_FALLING, 3600, 0, 1.0F), effect(MobEffects.FIRE_RESISTANCE, 6000, 0, 1.0F), effect(MobEffects.ABSORPTION, 1200, 3, 1.0F)));
 
-    public static final Item AURORA_PIE_SLICE = food("aurora_pie_slice", FoodKind.FAST, 3, 0.3F, List.of());
-    public static final Item TORCHBERRY_PIE_SLICE = food("torchberry_pie_slice", FoodKind.FAST, 3, 0.3F, List.of());
-    public static final Item TWILIGHT_CAKE_SLICE = food("twilight_cake_slice", FoodKind.FAST, 2, 0.1F, List.of());
+    public static final Item AURORA_PIE_SLICE = food("aurora_pie_slice", FoodKind.FAST, 3, 0.3F, List.of(custom(TDEffects.AURORA_GLOWING, 300, 0, 1.0F), effect(MobEffects.MOVEMENT_SPEED, 300, 2, 1.0F), effect(MobEffects.JUMP, 300, 1, 1.0F)));
+    public static final Item TORCHBERRY_PIE_SLICE = food("torchberry_pie_slice", FoodKind.FAST, 3, 0.3F, List.of(custom(TDEffects.FIRE_RANGE, 300, 0, 1.0F)));
+    public static final Item TWILIGHT_CAKE_SLICE = food("twilight_cake_slice", FoodKind.NONE, 2, 0.3F, List.of(effect(MobEffects.NIGHT_VISION, 600, 0, 1.0F), effect(MobEffects.DIG_SPEED, 600, 0, 1.0F), custom(TDEffects.TWILIGHT_AURA, 600, 0, 1.0F)));
     public static final Item WITCHCRAFT_BONE = register("witchcraft_bone", new Item(new Item.Properties()));
     public static final Item WITCHCRAFT_BONE_MEAL = register("witchcraft_bone_meal", new Item(new Item.Properties()));
     public static final Item ANTLER = register("antler", new Item(new Item.Properties()));

@@ -85,15 +85,15 @@ public final class TDEventHandlers {
     }
 
     private static void onLivingHurt(LivingHurtEvent event) {
-        if (!(event.getSource().getDirectEntity() instanceof LivingEntity attacker)) {
-            return;
-        }
         LivingEntity target = (LivingEntity) event.getEntity();
         event.setAmount(PhantomBlessingEffect.shareDamage(
                 target,
                 event.getSource(),
                 event.getAmount()
         ));
+        if (!(event.getSource().getDirectEntity() instanceof LivingEntity attacker)) {
+            return;
+        }
         ItemStack weapon = attacker.getMainHandItem();
         if (weapon.is(TDItems.FIERY_KNIFE) && !target.fireImmune()) {
             target.setRemainingFireTicks(20);

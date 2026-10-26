@@ -36,7 +36,8 @@ public final class RangeEffectVisuals {
     private static boolean hasRangeEffect(LivingEntity entity) {
         return entity.hasEffect(holder(TDEffects.FIRE_RANGE))
                 || entity.hasEffect(holder(TDEffects.POISON_RANGE))
-                || entity.hasEffect(holder(TDEffects.FROZEN_RANGE));
+                || entity.hasEffect(holder(TDEffects.FROZEN_RANGE))
+                || entity.hasEffect(holder(TDEffects.TWILIGHT_AURA));
     }
 
     private static net.minecraft.core.Holder<net.minecraft.world.effect.MobEffect> holder(
@@ -51,21 +52,25 @@ public final class RangeEffectVisuals {
             particle = ParticleTypes.FLAME;
         } else if (entity.hasEffect(holder(TDEffects.POISON_RANGE))) {
             particle = ParticleTypes.COMPOSTER;
-        } else {
+        } else if (entity.hasEffect(holder(TDEffects.FROZEN_RANGE))) {
             particle = ParticleTypes.SNOWFLAKE;
+        } else {
+            particle = ParticleTypes.PORTAL;
         }
 
         double radius = TDConfig.effectRange();
         Vec3 center = entity.position().add(0.0, entity.getEyeHeight() / 2.0, 0.0);
         for (int i = 0; i < 5; i++) {
-            double angle = entity.level().random.nextDouble() * Math.PI * 2.0;
-            double x = center.x + Math.cos(angle) * radius;
-            double z = center.z + Math.sin(angle) * radius;
+            float angle = entity.level().random.nextFloat()
+                    * (float) (Math.PI * 2.0);
+            Vec3 offset = new Vec3(0.0, radius, 0.0)
+                    .xRot((float) (Math.PI / 4.0))
+                    .yRot(angle);
             client.level.addAlwaysVisibleParticle(
                     particle,
-                    x,
-                    center.y,
-                    z,
+                    center.x + offset.x,
+                    center.y + offset.y,
+                    center.z + offset.z,
                     0.0,
                     0.0,
                     0.0

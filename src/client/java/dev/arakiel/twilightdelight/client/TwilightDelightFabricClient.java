@@ -19,6 +19,7 @@ public final class TwilightDelightFabricClient implements ClientModInitializer {
     @Override
     @SuppressWarnings("deprecation")
     public void onInitializeClient() {
+        TDClientModels.init();
         RangeEffectVisuals.init();
         TwilightDelightFabric.setCreativeStackDecorator(stack -> {
             if (Minecraft.getInstance().level == null) {

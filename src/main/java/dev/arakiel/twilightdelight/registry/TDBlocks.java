@@ -33,8 +33,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CakeBlock;
-import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -43,6 +41,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.tags.TagKey;
+import twilightforest.block.DarkLeavesBlock;
 import vectorwing.farmersdelight.common.block.CabinetBlock;
 import vectorwing.farmersdelight.common.block.FeastBlock;
 import vectorwing.farmersdelight.common.block.MushroomColonyBlock;
@@ -112,13 +111,13 @@ public final class TDBlocks implements BlockRegistryContainer {
     );
     public static final Block TORCHBERRIES_CRATE = new Block(
             BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)
-                    .strength(2.0F)
+                    .strength(2.0F, 3.0F)
                     .sound(SoundType.WOOD)
+                    .lightLevel(state -> 15)
     );
     public static final Block MUSHGLOOM_COLONY = new MushroomColonyBlock(
             new DeferredItemHolder("twilightforest", "mushgloom"),
-            BlockBehaviour.Properties.of()
-                    .mapColor(net.minecraft.world.level.material.MapColor.PLANT)
+            BlockBehaviour.Properties.ofFullCopy(Blocks.BROWN_MUSHROOM)
                     .instabreak()
                     .sound(SoundType.FUNGUS)
                     .noCollission()
@@ -128,8 +127,7 @@ public final class TDBlocks implements BlockRegistryContainer {
     );
     public static final Block FIDDLEHEAD_CLUMP = new FiddleheadClumpBlock(
             new DeferredItemHolder("twilightforest", "fiddlehead"),
-            BlockBehaviour.Properties.of()
-                    .mapColor(net.minecraft.world.level.material.MapColor.PLANT)
+            BlockBehaviour.Properties.ofFullCopy(Blocks.BROWN_MUSHROOM)
                     .instabreak()
                     .sound(SoundType.FUNGUS)
                     .randomTicks()
@@ -138,8 +136,7 @@ public final class TDBlocks implements BlockRegistryContainer {
     );
     @BlockRegistryContainer.NoBlockItem
     public static final Block FIDDLEHEAD_CLUMP_UPPER = new FiddleheadClumpUpperBlock(
-            BlockBehaviour.Properties.of()
-                    .mapColor(net.minecraft.world.level.material.MapColor.PLANT)
+            BlockBehaviour.Properties.ofFullCopy(Blocks.BROWN_MUSHROOM)
                     .instabreak()
                     .sound(SoundType.FUNGUS)
                     .noCollission()
@@ -160,6 +157,7 @@ public final class TDBlocks implements BlockRegistryContainer {
             ),
             BlockBehaviour.Properties.of()
                     .mapColor(net.minecraft.world.level.material.MapColor.PLANT)
+                    .pushReaction(net.minecraft.world.level.material.PushReaction.DESTROY)
                     .instabreak()
                     .sound(SoundType.GRASS)
                     .noCollission()
@@ -170,8 +168,13 @@ public final class TDBlocks implements BlockRegistryContainer {
                     .strength(10.0F, 10.0F)
                     .requiresCorrectToolForDrops()
     );
-    public static final Block IRONWOOD_LEAVES = new LeavesBlock(
-            BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)
+    public static final Block IRONWOOD_LEAVES = new DarkLeavesBlock(
+            BlockBehaviour.Properties.of()
+                    .mapColor(net.minecraft.world.level.material.MapColor.PLANT)
+                    .pushReaction(net.minecraft.world.level.material.PushReaction.DESTROY)
+                    .sound(SoundType.AZALEA_LEAVES)
+                    .isSuffocating((state, level, pos) -> false)
+                    .isViewBlocking((state, level, pos) -> false)
                     .strength(10.0F, 10.0F)
                     .requiresCorrectToolForDrops()
     );
@@ -186,8 +189,8 @@ public final class TDBlocks implements BlockRegistryContainer {
     public static final Block TWILIGHT_CAKE = new TwilightCakeBlock(
             BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE)
     );
-    public static final Block AURORA_PIE = pie(() -> TDItems.AURORA_PIE_SLICE);
-    public static final Block TORCHBERRY_PIE = pie(() -> TDItems.TORCHBERRY_PIE_SLICE);
+    public static final Block AURORA_PIE = pie(() -> TDItems.AURORA_PIE_SLICE, 7);
+    public static final Block TORCHBERRY_PIE = pie(() -> TDItems.TORCHBERRY_PIE_SLICE, 10);
 
     private static final Block[] CABINETS = {
             TWILIGHT_OAK_CABINET,
@@ -244,8 +247,12 @@ public final class TDBlocks implements BlockRegistryContainer {
         return new TwilightFeastBlock(serving, leftovers, kind);
     }
 
-    private static Block pie(Supplier<Item> slice) {
-        return new PieBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE), slice);
+    private static Block pie(Supplier<Item> slice, int light) {
+        return new PieBlock(
+                BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE)
+                        .lightLevel(state -> light),
+                slice
+        );
     }
 
     private static Block cabinet() {

@@ -3,6 +3,7 @@ package dev.arakiel.twilightdelight.item;
 import java.util.List;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
@@ -29,8 +30,29 @@ public final class TeardropSwordItem extends SwordItem {
     @Override
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         boolean success = super.hurtEnemy(stack, target, attacker);
-        if (success && !target.fireImmune()) {
-            target.setRemainingFireTicks(20);
+        if (success && !target.level().isClientSide() && !target.fireImmune()) {
+            target.setRemainingFireTicks(15 * 20);
+        } else {
+            for (int i = 0; i < 20; i++) {
+                double x = target.getX()
+                        + target.level().getRandom().nextFloat()
+                        * target.getBbWidth() * 2.0F
+                        - target.getBbWidth();
+                double y = target.getY()
+                        + target.level().getRandom().nextFloat()
+                        * target.getBbHeight();
+                double z = target.getZ()
+                        + target.level().getRandom().nextFloat()
+                        * target.getBbWidth() * 2.0F
+                        - target.getBbWidth();
+                target.level().addParticle(
+                        ParticleTypes.FLAME,
+                        x, y, z,
+                        0.02, 0.02, 0.02
+                );
+            }
+        }
+        if (success) {
             if (Mth.nextInt(attacker.getRandom(), 1, 3) == 1) {
                 target.addEffect(new MobEffectInstance(
                         net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.wrapAsHolder(
