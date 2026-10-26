@@ -11,6 +11,9 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 
 public final class FrozenRecipeCategory implements IRecipeCategory<FrozenRecipe> {
+    private static final int WIDTH = 82;
+    private static final int HEIGHT = 28;
+
     private final RecipeType<FrozenRecipe> type = RecipeType.create(
             "twilightdelight",
             "frozen",
@@ -35,6 +38,16 @@ public final class FrozenRecipeCategory implements IRecipeCategory<FrozenRecipe>
     @Override
     public IDrawable getIcon() {
         return icon;
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 
     @Override

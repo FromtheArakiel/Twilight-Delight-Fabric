@@ -2,6 +2,7 @@ package dev.arakiel.twilightdelight;
 
 import dev.arakiel.gemini.creative.GeminiCreativeTabs;
 import dev.arakiel.twilightdelight.config.TDConfig;
+import dev.arakiel.twilightdelight.effect.TwilightTransformationMaps;
 import dev.arakiel.twilightdelight.event.TDEventHandlers;
 import dev.arakiel.twilightdelight.registry.TDBlocks;
 import dev.arakiel.twilightdelight.registry.TDEffects;
@@ -27,6 +28,7 @@ public final class TwilightDelightFabric implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        TwilightTransformationMaps.init();
         TwilightRecipes.init();
         TDEffects.init();
         TDItems.init();

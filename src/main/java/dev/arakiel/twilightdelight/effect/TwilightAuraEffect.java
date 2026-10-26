@@ -14,8 +14,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.phys.AABB;
-import twilightforest.init.TFDataMaps;
-import twilightforest.util.datamaps.EntityTransformation;
 
 public final class TwilightAuraEffect extends MobEffect {
     public TwilightAuraEffect() {
@@ -61,10 +59,7 @@ public final class TwilightAuraEffect extends MobEffect {
     }
 
     private static EntityType<?> getTransformTarget(Mob mob) {
-        EntityTransformation transformation =
-                BuiltInRegistries.ENTITY_TYPE.wrapAsHolder(mob.getType())
-                        .getData(TFDataMaps.TRANSFORMATION_POWDER);
-        return transformation == null ? null : transformation.result();
+        return TwilightTransformationMaps.target(mob.getType());
     }
 
     private static void transform(Mob old) {
