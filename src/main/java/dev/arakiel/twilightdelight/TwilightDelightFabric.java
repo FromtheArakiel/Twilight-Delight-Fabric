@@ -4,6 +4,8 @@ import dev.arakiel.gemini.creative.GeminiCreativeTabs;
 import dev.arakiel.twilightdelight.config.TDConfig;
 import dev.arakiel.twilightdelight.effect.TwilightTransformationMaps;
 import dev.arakiel.twilightdelight.event.TDEventHandlers;
+import dev.arakiel.twilightdelight.event.TwilightBossLoot;
+import dev.arakiel.twilightdelight.loot.BossLootCountFunction;
 import dev.arakiel.twilightdelight.registry.TDBlocks;
 import dev.arakiel.twilightdelight.registry.TDEffects;
 import dev.arakiel.twilightdelight.registry.TDItems;
@@ -30,11 +32,13 @@ public final class TwilightDelightFabric implements ModInitializer {
     public void onInitialize() {
         TwilightTransformationMaps.init();
         TwilightRecipes.init();
+        BossLootCountFunction.init();
         TDEffects.init();
         TDItems.init();
         TDBlocks.init();
         TDBlocks.finishRegistration();
         TDConfig.init();
+        TwilightBossLoot.init();
         TDEventHandlers.init();
 
         GeminiCreativeTabs.register(

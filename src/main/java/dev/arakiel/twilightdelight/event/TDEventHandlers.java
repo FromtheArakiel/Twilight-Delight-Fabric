@@ -248,23 +248,6 @@ public final class TDEventHandlers {
             );
         }
 
-        if (entity.getType() == twilightforest.init.TFEntities.NAGA.get()) {
-            int amount = bestRoll(entity, 5, 10, looting);
-            if (knife) {
-                amount = Math.round(amount * 1.5F);
-            }
-            entity.spawnAtLocation(new ItemStack(
-                    entity.isOnFire() ? TDItems.COOKED_NAGA_MEAT : TDItems.RAW_NAGA_MEAT,
-                    amount
-            ));
-        }
-        if (entity.getType() == twilightforest.init.TFEntities.LICH.get()) {
-            int amount = bestRoll(entity, 2, 6, looting);
-            if (knife) {
-                amount = Math.round(amount * 1.5F);
-            }
-            entity.spawnAtLocation(new ItemStack(TDItems.WITCHCRAFT_BONE, amount));
-        }
         if (entity.getType() == twilightforest.init.TFEntities.DEER.get()
                 && entity.getRandom().nextFloat() < 0.3F + looting * 0.1F) {
             entity.spawnAtLocation(new ItemStack(TDItems.ANTLER));
@@ -276,13 +259,6 @@ public final class TDEventHandlers {
                 && entity.getRandom().nextFloat() < 0.3F) {
             entity.spawnAtLocation(new ItemStack(
                     entity.isOnFire() ? TDItems.COOKED_TOMAHAWK_SMEAK : TDItems.RAW_TOMAHAWK_SMEAK
-            ));
-        }
-        if (diamondAxe && entity.getType() == twilightforest.init.TFEntities.MINOSHROOM.get()) {
-            entity.spawnAtLocation(new ItemStack(
-                    entity.isOnFire()
-                            ? TDItems.COOKED_TOMAHAWK_SMEAXE
-                            : TDItems.RAW_TOMAHAWK_SMEAXE
             ));
         }
         if (entity.getType() == twilightforest.init.TFEntities.HELMET_CRAB.get()
@@ -317,14 +293,6 @@ public final class TDEventHandlers {
                 );
             }
         }
-    }
-
-    private static int bestRoll(LivingEntity entity, int min, int max, int looting) {
-        int result = min;
-        for (int i = 0; i <= looting; i++) {
-            result = Math.max(result, min + entity.getRandom().nextInt(max - min + 1));
-        }
-        return result;
     }
 
     private static void dropChance(LivingEntity entity, net.minecraft.world.level.ItemLike item, float chance) {
